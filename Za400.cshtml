@@ -1,0 +1,228 @@
+﻿@model Hanyokessai.Models.Za400Dto
+@{ ViewData["Title"] = "ZA400"; }
+    <head>
+        <style>
+            .inputInfo {
+                width: 313pt;
+                height: 40pt;
+            }
+
+            .inputInfo2 {
+                width: 150pt;
+                height: 40pt;
+            }
+
+            .inputTable {
+                padding-left: 14px;
+            }
+
+            .verifyEmail {
+                padding-left: 40px;
+                position: absolute;
+                top: 4px;
+            }
+
+            .registor {
+                transform: translate(30%,0%);
+            }
+            .imgStamp {
+                width: 313pt;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="registor">
+            <h1 class="registor">汎用決裁テスト</h1>
+            <h2>会員情報修正画面</h2>
+            <br>
+            @{ for (var i = 0; i < @Model.errorMessege.Count(); i++)
+                {
+    <ul calss="verifyEmail"><li type="disc">@Model.errorMessege[i]</li></ul> } }
+            @Html.ValidationSummary()
+        <form class="form-horizontal" method="post" asp-controller="Za400" asp-action="event_Modify" enctype="multipart/form-data">
+            <input type="hidden" class="form-control" asp-for="member_id">
+            <input type="hidden" class="form-control" asp-for="fileSize">
+            <input type="hidden" class="form-control" asp-for="txtMail">
+
+            <table>
+                <tr>
+                    <td><b class="label">メール</b></td>
+                </tr>
+                <tr>
+                    <td>@Model.txtMail
+                </tr>
+                <tr>
+                    <td><b class='label'>パスワード</b></td>
+                </tr>
+                <tr>
+                    <td><input type="password" placeholder="パスワード" asp-for="txtPwd" class="inputInfo" maxlength="15"></td>
+                </tr>
+                <tr>
+                    <td><input type="password" placeholder="パスワード確認" asp-for="txtPwdConfirm" class="inputInfo" maxlength="15"></td>
+                </tr>
+                <tr>
+                    <td><b class='label'>会員名_カナ</b></td>
+                </tr>
+                <tr>
+                    <td colspan='2'>
+                        <input type="text" placeholder="ｾｲ" asp-for="txtKanaFirstName" class="inputInfo2" maxlength="30">
+                        <input type="text" placeholder="ﾒｲ" asp-for="txtKanaLastName" class="inputInfo2" maxlength="30">
+                </tr>
+                <tr>
+                    <td><b class='label'>会員名_漢字</b></td>
+                </tr>
+                <tr>
+                    <td colspan='2'>
+                        <input type="text" placeholder="姓" asp-for="txtKanjiFirstName" class="inputInfo2" maxlength="30">
+                        <input type="text" placeholder="名" asp-for="txtKanjiLastName" class="inputInfo2" maxlength="30">
+                    </td>
+                </tr>
+                <tr>
+                    <td><b class='label'>会員名_英語</b></td>
+                </tr>
+                <tr>
+                    <td colspan='2'>
+                        <input type="text" placeholder="first name" asp-for="txtEngFirstName" class="inputInfo2" maxlength="30">
+                        <input type="text" placeholder="last name" asp-for="txtEngLastName" class="inputInfo2" maxlength="30">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>性別</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="inputInfo" asp-for="txtGender">
+                            <option value="1"> 男性 </option>
+                            <option value="2"> 女性 </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>携帯番号</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" placeholder="123-1234-1234" asp-for="txtPhone" class="inputInfo" maxlength="16">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>郵便番号</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" placeholder="123-1234" asp-for="txtZipcode" class="inputInfo" maxlength="8">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>住所</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" placeholder="住所" asp-for="txtAddress" class="inputInfo" maxlength="150">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>会社名</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Model.txtCompanyCode
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>所属</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td colspan='2'>
+                                    <select asp-for="txtDepartment1" class="inputInfo2">
+                                        @for (var i = 0; i < Model.txtDep1CdList.Count(); i++)
+                                        {
+                            <option value="@Model.txtDep1CdList[i]">@Model.txtDep1NameList[i]</option>
+}
+                                    </select>
+                                    <select asp-for="txtDepartment2" class="inputInfo2">
+                                        @for (var i = 0; i < Model.txtDep2CdList.Count(); i++)
+                                        {
+                            <option value="@Model.txtDep2CdList[i]">@Model.txtDep2CdNameList[i]</option>
+}
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>職位</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select asp-for="txtPosition" class="inputInfo">
+                            @for (var i = 0; i < Model.txtComPosCdList.Count(); i++)
+                            {
+                                <option value="@Model.txtComPosCdList[i]">@Model.txtComPosCdNameList[i]</option>}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>入社日</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" asp-for="txtEnterDate" max="9999-12-31" class="inputInfo"  maxlength="11">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b class='label'>押印情報有無</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <input type="file" class="btn btn-outline-warning btn-block" asp-for="imgStamp" name="imgStamp">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*押印情報有無チェック*@
+                        @if (Model.txtStampCode == "1")
+                        {@*押印情報がある場合、イメージを表示する*@
+                                        <img name="txtimgStamp" alt="stamp image" class="txtimgStamp" asp-append-version="true" src="@Model.txtimgStamp" /> }
+                                    else
+                                    { @*押印情報がない場合、イメージ非表示*@}
+                </tr>
+                <tr>
+                    <td>
+                        <table class="inputInfo">
+                            <tr>
+                                <td><button type="submit" class="btn btn-light btn-outline-dark btn-lg">会員修正</button>
+                                <td><a class="btn btn-light btn-outline-dark btn-lg" asp-controller="Za400" asp-action="event_Cancel">キャンセル</a>
+                                <td><a class="btn btn-light btn-outline-dark btn-lg" asp-controller="Za400" asp-action="event_UnRegister">会員脱会</a>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        </div>
+    </body>
